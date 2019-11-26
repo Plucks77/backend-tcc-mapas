@@ -30,11 +30,10 @@ class UserController {
       "senha",
       "data_nascimento",
       "cpf",
-      "nick",
-      "id"
+      "nick"
     ]);
 
-    const user = await User.find(data.id);
+    const user = await User.find(request.params.id);
 
     if (!user) {
       return response.status(404).send({ erro: "Usuário não encontrado" });
@@ -53,30 +52,33 @@ class UserController {
   }
 
   async show({ request, response }) {
-    const data = request.only(["id"]);
+    const id = request.params.id;
 
-    const user = await User.find(data.id);
+    const user = await User.find(id);
 
     if (!user) {
       return response.status(404).send({ erro: "Usuário não encontrado" });
     }
-    const token = await user.tokens().fetch();
-    return response.send({ user, token });
+
+    return response.send(user);
   }
 
   async delete({ request, response }) {
-    const data = request.only(["id"]);
+    const id = request.params.id;
 
-    const user = await User.find(data.id);
+    const user = await User.find(id);
 
     if (!user) {
       return response.status(404).send({ erro: "Usuário não encontrado" });
     }
 
-    await user.delete();
-    await user.revokeTokens();
+    try {
+      await user.delete();
 
-    return response.send({ sucesso: "Usuário excluido com sucesso" });
+      return response.send({ sucesso: "Usuário excluido com sucesso" });
+    } catch (e) {
+      return response.status(400).send({ erro: e });
+    }
   }
 }
 module.exports = UserController;

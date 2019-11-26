@@ -17,8 +17,8 @@
 const Route = use("Route");
 
 Route.post("/user/create", "UserController.create");
-Route.post("/user/update", "UserController.update").middleware("auth");
-Route.post("/user/show", "UserController.show").middleware("auth");
-Route.post("/user/delete", "UserController.delete").middleware("auth");
+Route.post("/user/update/:id", "UserController.update").middleware("auth");
+Route.post("/user/show/:id", "UserController.show").middleware("auth");
+Route.post("/user/delete/:id", "UserController.delete").middleware("auth");
 
 Route.post("/login", "SessionController.create");
