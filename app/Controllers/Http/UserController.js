@@ -17,7 +17,7 @@ class UserController {
 
       const token = await auth.withRefreshToken().generate(user);
 
-      return response.send({ usuario: user, token });
+      return response.send({ user, token });
     } catch (e) {
       return response.status(400).send({ erro: e });
     }
