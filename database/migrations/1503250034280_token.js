@@ -5,13 +5,13 @@ const Schema = use("Schema");
 
 class TokensSchema extends Schema {
   up() {
-    this.create("tokens", table => {
+    this.create("token", table => {
       table.increments();
       table
         .integer("user_id")
         .unsigned()
         .references("id")
-        .inTable("users")
+        .inTable("user")
         .onDelete("CASCADE"),
         table
           .string("token", 255)
@@ -25,7 +25,7 @@ class TokensSchema extends Schema {
   }
 
   down() {
-    this.drop("tokens");
+    this.drop("token");
   }
 }
 
