@@ -37,6 +37,10 @@ class User extends Model {
   static get hidden() {
     return ["senha"];
   }
+
+  static get table() {
+    return "user";
+  }
 }
 
 module.exports = User;

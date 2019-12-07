@@ -15,10 +15,14 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
-
+//user
 Route.post("/user/create", "UserController.create");
-Route.post("/user/update/:id", "UserController.update").middleware("auth");
 Route.post("/user/show/:id", "UserController.show").middleware("auth");
-Route.post("/user/delete/:id", "UserController.delete").middleware("auth");
+Route.put("/user/update/:id", "UserController.update").middleware("auth");
+Route.delete("/user/delete/:id", "UserController.delete").middleware("auth");
 
 Route.post("/login", "SessionController.create");
+
+//evento
+Route.post("/evento/create", "EventoController.create").middleware("auth");
+Route.post("/evento/show", "EventoController.show");
